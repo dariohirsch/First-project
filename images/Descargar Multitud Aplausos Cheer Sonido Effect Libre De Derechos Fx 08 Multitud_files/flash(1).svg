@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>22277DB1-EAD4-4659-BAF6-17F8C55D8551</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="28" height="28"></rect>
+    </defs>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Audio-Icons" transform="translate(-319.000000, -209.000000)">
+            <g id="Group" transform="translate(28.000000, 199.000000)">
+                <g id="Icon/Flash2" transform="translate(291.000000, 10.000000)">
+                    <g>
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Background"></g>
+                        <path d="M11.5099242,12.9086762 L11.5099242,8.09186226 C11.5099242,7.61046636 12.0758227,7.33114275 12.481767,7.61216727 L25.8125551,16.8407178 C26.3718891,17.2279298 25.9459648,18.0720531 25.2841026,17.8880377 L16.8878188,15.553646 L16.8878188,19.9081881 C16.8878188,20.3804408 16.3408391,20.6618252 15.9331077,20.3993229 L2.20454108,11.5607112 C1.62315315,11.1864068 2.04066033,10.3171591 2.71339886,10.501272 L11.5099242,12.9086762 Z" id="Path" fill="#F1861B" mask="url(#mask-2)" transform="translate(14.000000, 14.000000) rotate(90.000000) translate(-14.000000, -14.000000) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
