@@ -7,7 +7,7 @@ class Obstacle {
 		this.conePositionX = conePositionX;
 		this.conePositionY = conePositionY;
 		this.img = new Image();
-		this.img.src = "/images/cono-de-trafico.png";
+		this.img.src = "./images/cono-de-trafico.png";
 	}
 
 	drawObstacle() {

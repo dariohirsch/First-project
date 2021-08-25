@@ -7,7 +7,7 @@ class Player {
 		this.playerPosX = playerPosX;
 		this.playerPosY = playerPosY;
 		this.img = new Image();
-		this.img.src = "/images/jugador-de-futbol.png";
+		this.img.src = "./images/jugador-de-futbol.png";
 	}
 
 	drawPlayer() {

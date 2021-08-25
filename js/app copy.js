@@ -10,26 +10,26 @@ const app = {
 	// },
 
 	scoreSound() {
-		let scoreAudio = new Audio("/sounds/mixkit-winning-a-coin-video-game-2069.wav");
+		let scoreAudio = new Audio("./sounds/mixkit-winning-a-coin-video-game-2069.wav");
 		scoreAudio.play();
 	},
 	whistleSound() {
-		let whistleSound = new Audio("/sounds/Referee Whistle.mp3");
+		let whistleSound = new Audio(".sounds/Referee Whistle.mp3");
 		whistleSound.play();
 	},
 
 	colisionSound() {
-		let colisionSound = new Audio("/sounds/choque.mp3");
+		let colisionSound = new Audio("./sounds/choque.mp3");
 		colisionSound.play();
 	},
 
 	gameOverSound() {
-		let gameOverSound = new Audio("/sounds/game over.mp3");
+		let gameOverSound = new Audio("./sounds/game over.mp3");
 		gameOverSound.play();
 	},
 
 	winSound() {
-		let winSound = new Audio("/sounds/victoria.mp3");
+		let winSound = new Audio("./sounds/victoria.mp3");
 		winSound.play();
 	},
 	ctx: undefined,
@@ -74,7 +74,7 @@ const app = {
 
 	setBackgroundImage() {
 		this.backgroundImage = new Image();
-		this.backgroundImage.src = "/images/campo.png";
+		this.backgroundImage.src = "./images/campo.png";
 		this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvasSize.w, this.canvasSize.h);
 	},
 	setNewPlayer() {
@@ -87,7 +87,7 @@ const app = {
 
 	setNewBall() {
 		this.newBallImage = new Image();
-		this.newBallImage.src = "/images/variante-de-balon-de-futbol.png";
+		this.newBallImage.src = "./images/variante-de-balon-de-futbol.png";
 		this.ballPosition.x = this.messi.playerPosX + 25;
 		this.ballPosition.y = this.messi.playerPosY + 100;
 		this.ctx.drawImage(this.newBallImage, this.ballPosition.x, this.ballPosition.y, 40, 40);
