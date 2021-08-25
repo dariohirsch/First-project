@@ -1,6 +1,7 @@
 #canvas {
 	height: 700px;
-	margin-left: 60px;
+	margin-left: 320px;
+	margin-top: 50px;
 	border-radius: 10px;
 }
 
@@ -8,7 +9,7 @@ body {
 	display: flex;
 	background-size: cover;
 	background-image: url("/images/paris.jpeg");
-	margin: 20px 20px 20px 500px;
+	margin: 20px 20px 20px 300px;
 }
 
 #button {
@@ -23,15 +24,30 @@ body {
 }
 
 .info {
-	margin-top: 220px;
-
+	margin-top: 10px;
+	margin-left: 10px;
 	border-radius: 20px;
+	text-align: center;
 }
 
 #score,
 #balls {
 	font-size: 45px;
-	margin-top: 50px;
-	color: rgba(233, 223, 223, 0.74);
+	margin-top: 35px;
+	margin-bottom: 30px;
+	color: rgb(231, 247, 244);
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.instrucciones {
+	color: rgb(231, 247, 244);
+	margin-top: 60px;
+	font-size: 23px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	width: 400px;
+	text-align: left;
+}
+
+img {
+	border-radius: 50%;
 }

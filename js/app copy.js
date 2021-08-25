@@ -1,4 +1,5 @@
 const app = {
+	shoot: false,
 	score: 0,
 	balls: 3,
 	framesCounter: 0,
@@ -47,7 +48,7 @@ const app = {
 
 	init(canvas) {
 		this.whistleSound();
-		setTimeout(() => this.mainSound(), 1200);
+
 		this.ctx = canvas.getContext("2d");
 		this.canvasDimension();
 		this.setBackgroundImage();
@@ -90,6 +91,7 @@ const app = {
 		this.ballPosition.x = this.messi.playerPosX + 25;
 		this.ballPosition.y = this.messi.playerPosY + 100;
 		this.ctx.drawImage(this.newBallImage, this.ballPosition.x, this.ballPosition.y, 40, 40);
+		console.log(this.ballPosition.y);
 	},
 
 	drawBall() {
@@ -104,26 +106,54 @@ const app = {
 		this.cone.drawObstacle();
 	},
 
+	ballMove() {
+		this.ballPosition.y += 10;
+		this.shoot = true;
+	},
+
+	moveBallLeft() {
+		if (this.shoot === false) {
+			this.ballPosition.x -= 30;
+		}
+	},
+	moveBallRight() {
+		if (this.shoot === false) {
+			this.ballPosition.x += 30;
+		}
+	},
+	moveBallDown() {
+		if (this.shoot === false) {
+			this.ballPosition.y += 30;
+		}
+	},
+	moveBallUp() {
+		if (this.shoot === false) {
+			this.ballPosition.y -= 30;
+		}
+	},
+
 	setListeners() {
 		document.addEventListener("keydown", (e) => {
 			if (e.key === "ArrowLeft") {
-				this.ballPosition.x > 50 ? (this.ballPosition.x -= 30) : null;
+				this.ballPosition.x > 50 ? this.moveBallLeft() : null;
 				this.messi.playerMoveLeft();
 			} else if (e.key === "ArrowRight") {
-				this.ballPosition.x <= this.canvasSize.w - 95 ? (this.ballPosition.x += 30) : null;
+				this.ballPosition.x <= this.canvasSize.w - 95 ? this.moveBallRight() : null;
 				this.messi.playerMoveRight();
 			} else if (e.key === "ArrowDown") {
-				this.ballPosition.y <= this.canvasSize.h - 80 ? (this.ballPosition.y += 30) : null;
+				this.ballPosition.y <= this.canvasSize.h - 80 ? this.moveBallDown() : null;
 				this.messi.playerMoveDown();
 			} else if (e.key === "ArrowUp") {
-				this.ballPosition.y > 150 ? (this.ballPosition.y -= 30) : null;
+				this.ballPosition.y > 150 ? this.moveBallUp() : null;
 				this.messi.playerMoveUp();
+			} else if (e.code === "Space") {
+				this.ballMove();
 			}
 		});
 	},
 
 	checkGoal() {
-		if (this.ballPosition.y >= this.canvasSize.h - 80) {
+		if (this.ballPosition.y >= this.canvasSize.h - 80 && this.ballPosition.x >= 360 && this.ballPosition.x <= 380) {
 			this.messi.playerPosX = this.playerPosition.x;
 			this.messi.playerPosY = 40;
 			this.ballPosition.x = this.messi.playerPosX + 25;
@@ -178,8 +208,8 @@ const app = {
 				this.ctx.fillStyle = "red";
 				this.ctx.font = "80px Verdana italic";
 				this.ctx.lineWidth = 2;
-
 				this.ctx.fillText("GAME OVER", 160, 450);
+
 				this.gameOverSound();
 			}, 100);
 		}
