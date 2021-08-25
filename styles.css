@@ -8,7 +8,7 @@
 body {
 	display: flex;
 	background-size: cover;
-	background-image: url("/images/paris.jpeg");
+	background-image: url("./images/campo.png");
 	margin: 20px 20px 20px 300px;
 }
 
