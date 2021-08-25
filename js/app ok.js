@@ -44,16 +44,13 @@ const app = {
 
 	init(canvas) {
 		this.whistleSound();
-
 		this.ctx = canvas.getContext("2d");
 		this.canvasDimension();
 		this.setBackgroundImage();
 		this.setNewPlayer();
 		this.setNewBall();
 		this.setNewObstacle();
-
 		this.setListeners();
-
 		this.refreshCanvas();
 	},
 
@@ -104,7 +101,7 @@ const app = {
 
 	ballMove() {
 		this.ballInterval = setInterval(() => {
-			this.ballPosition.y += 20;
+			this.ballPosition.y += 100;
 		}, 100);
 		this.shoot = true;
 	},
@@ -150,34 +147,31 @@ const app = {
 		});
 	},
 
+	refreshPlayerPosition() {
+		this.messi.playerPosX = this.playerPosition.x;
+		this.messi.playerPosY = 40;
+		this.ballPosition.x = this.messi.playerPosX + 25;
+		this.ballPosition.y = this.messi.playerPosY + 100;
+		this.shoot = false;
+		clearInterval(this.ballInterval);
+		this.obstacles = [];
+	},
+
 	checkBallOut() {
 		if (this.ballPosition.y >= this.canvasSize.h) {
-			this.messi.playerPosX = this.playerPosition.x;
-			this.messi.playerPosY = 40;
-			this.ballPosition.x = this.messi.playerPosX + 25;
-			this.ballPosition.y = this.messi.playerPosY + 100;
-
 			this.balls--;
 			this.updateScore();
 			this.updateBalls();
-			this.obstacles = [];
-			this.shoot = false;
-			clearInterval(this.ballInterval);
+			this.refreshPlayerPosition();
 		}
 	},
 
 	checkGoal() {
 		if (this.ballPosition.y >= this.canvasSize.h - 80 && this.ballPosition.x >= 360 && this.ballPosition.x <= 380) {
-			this.messi.playerPosX = this.playerPosition.x;
-			this.messi.playerPosY = 40;
-			this.ballPosition.x = this.messi.playerPosX + 25;
-			this.ballPosition.y = this.messi.playerPosY + 100;
 			this.scoreSound();
-			this.shoot = false;
 			this.score++;
 			this.updateScore();
-			clearInterval(this.ballInterval);
-			this.obstacles = [];
+			this.refreshPlayerPosition();
 		} else {
 			this.checkBallOut();
 		}
@@ -190,16 +184,10 @@ const app = {
 	checkColision() {
 		this.obstacles.forEach((element) => {
 			if (this.ballPosition.x < element.conePositionX + 50 && this.ballPosition.x + 40 > element.conePositionX && this.ballPosition.y < element.conePositionY && 50 + this.ballPosition.y > element.conePositionY) {
-				this.messi.playerPosX = this.playerPosition.x;
-				this.messi.playerPosY = 40;
-				this.ballPosition.x = this.messi.playerPosX + 25;
-				this.ballPosition.y = this.messi.playerPosY + 100;
-				this.shoot = false;
+				this.refreshPlayerPosition();
 				this.colisionSound();
-				clearInterval(this.ballInterval);
 				this.balls--;
 				this.updateBalls();
-				this.obstacles = [];
 			}
 		});
 	},
@@ -229,7 +217,6 @@ const app = {
 				this.ctx.font = "80px Verdana italic";
 				this.ctx.lineWidth = 2;
 				this.ctx.fillText("GAME OVER", 160, 450);
-
 				this.gameOverSound();
 			}, 100);
 		}
