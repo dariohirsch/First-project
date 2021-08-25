@@ -87,7 +87,7 @@ const app = {
 
 	setNewBall() {
 		this.newBallImage = new Image();
-		this.newBallImage.src = "/images/variante-de-balon-de-futbol.png";
+		this.newBallImage.src = "./images/variante-de-balon-de-futbol.png";
 		this.ballPosition.x = this.messi.playerPosX + 25;
 		this.ballPosition.y = this.messi.playerPosY + 100;
 		this.ctx.drawImage(this.newBallImage, this.ballPosition.x, this.ballPosition.y, 40, 40);

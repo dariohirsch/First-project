@@ -4,10 +4,6 @@ const app = {
 	balls: 3,
 	framesCounter: 0,
 	obstacles: [],
-	// mainSound() {
-	// 	let mainAudio = new Audio("/sounds/gol-messi.mp3");
-	// 	mainAudio.play();
-	// },
 
 	scoreSound() {
 		let scoreAudio = new Audio("./sounds/mixkit-winning-a-coin-video-game-2069.wav");
@@ -87,7 +83,7 @@ const app = {
 
 	setNewBall() {
 		this.newBallImage = new Image();
-		this.newBallImage.src = "./images/variante-de-balon-de-futbol.png";
+		this.newBallImage.src = "./images/pelota-de-futbol.png";
 		this.ballPosition.x = this.messi.playerPosX + 25;
 		this.ballPosition.y = this.messi.playerPosY + 100;
 		this.ctx.drawImage(this.newBallImage, this.ballPosition.x, this.ballPosition.y, 40, 40);
@@ -107,7 +103,9 @@ const app = {
 	},
 
 	ballMove() {
-		this.ballPosition.y += 10;
+		this.ballInterval = setInterval(() => {
+			this.ballPosition.y += 20;
+		}, 100);
 		this.shoot = true;
 	},
 
@@ -152,6 +150,22 @@ const app = {
 		});
 	},
 
+	checkBallOut() {
+		if (this.ballPosition.y >= this.canvasSize.h) {
+			this.messi.playerPosX = this.playerPosition.x;
+			this.messi.playerPosY = 40;
+			this.ballPosition.x = this.messi.playerPosX + 25;
+			this.ballPosition.y = this.messi.playerPosY + 100;
+
+			this.balls--;
+			this.updateScore();
+			this.updateBalls();
+			this.obstacles = [];
+			this.shoot = false;
+			clearInterval(this.ballInterval);
+		}
+	},
+
 	checkGoal() {
 		if (this.ballPosition.y >= this.canvasSize.h - 80 && this.ballPosition.x >= 360 && this.ballPosition.x <= 380) {
 			this.messi.playerPosX = this.playerPosition.x;
@@ -159,9 +173,13 @@ const app = {
 			this.ballPosition.x = this.messi.playerPosX + 25;
 			this.ballPosition.y = this.messi.playerPosY + 100;
 			this.scoreSound();
+			this.shoot = false;
 			this.score++;
 			this.updateScore();
+			clearInterval(this.ballInterval);
 			this.obstacles = [];
+		} else {
+			this.checkBallOut();
 		}
 	},
 
@@ -176,7 +194,9 @@ const app = {
 				this.messi.playerPosY = 40;
 				this.ballPosition.x = this.messi.playerPosX + 25;
 				this.ballPosition.y = this.messi.playerPosY + 100;
+				this.shoot = false;
 				this.colisionSound();
+				clearInterval(this.ballInterval);
 				this.balls--;
 				this.updateBalls();
 				this.obstacles = [];
