@@ -4,13 +4,23 @@ const app = {
 	balls: 3,
 	framesCounter: 0,
 	obstacles: [],
+	scoreAudio: new Audio("./sounds/mixkit-winning-a-coin-video-game-2069.wav"),
+	ballMovementL: false,
+	ballMovementR: false,
+	ballMovementD: false,
+	ballMovementU: false,
+	ballShooting: false,
+
+	playSound(sound) {
+		sound.play();
+	},
 
 	scoreSound() {
 		let scoreAudio = new Audio("./sounds/mixkit-winning-a-coin-video-game-2069.wav");
 		scoreAudio.play();
 	},
 	whistleSound() {
-		let whistleSound = new Audio(".sounds/Referee Whistle.mp3");
+		let whistleSound = new Audio("./sounds/Referee Whistle.mp3");
 		whistleSound.play();
 	},
 
@@ -28,6 +38,12 @@ const app = {
 		let winSound = new Audio("./sounds/victoria.mp3");
 		winSound.play();
 	},
+
+	fallSound() {
+		let fallSound = new Audio("./sounds/caida.mp3");
+		fallSound.play();
+	},
+
 	ctx: undefined,
 	canvasSize: {
 		w: undefined,
@@ -44,13 +60,16 @@ const app = {
 
 	init(canvas) {
 		this.whistleSound();
+
 		this.ctx = canvas.getContext("2d");
 		this.canvasDimension();
 		this.setBackgroundImage();
 		this.setNewPlayer();
 		this.setNewBall();
 		this.setNewObstacle();
+
 		this.setListeners();
+
 		this.refreshCanvas();
 	},
 
@@ -101,48 +120,67 @@ const app = {
 
 	ballMove() {
 		this.ballInterval = setInterval(() => {
-			this.ballPosition.y += 100;
+			this.ballPosition.y += 30;
 		}, 100);
 		this.shoot = true;
 	},
 
 	moveBallLeft() {
-		if (this.shoot === false) {
-			this.ballPosition.x -= 30;
+		if (this.shoot === false && this.ballMovementL) {
+			this.ballPosition.x -= 4;
 		}
 	},
 	moveBallRight() {
-		if (this.shoot === false) {
-			this.ballPosition.x += 30;
+		if (this.shoot === false && this.ballMovementR) {
+			this.ballPosition.x += 4;
 		}
 	},
 	moveBallDown() {
-		if (this.shoot === false) {
-			this.ballPosition.y += 30;
+		if (this.shoot === false && this.ballMovementD) {
+			this.ballPosition.y += 4;
 		}
 	},
 	moveBallUp() {
-		if (this.shoot === false) {
-			this.ballPosition.y -= 30;
+		if (this.shoot === false && this.ballMovementU) {
+			this.ballPosition.y -= 4;
 		}
 	},
 
 	setListeners() {
 		document.addEventListener("keydown", (e) => {
 			if (e.key === "ArrowLeft") {
-				this.ballPosition.x > 50 ? this.moveBallLeft() : null;
-				this.messi.playerMoveLeft();
+				this.ballMovementL = true;
+				this.messi.messiMovementL = true;
 			} else if (e.key === "ArrowRight") {
-				this.ballPosition.x <= this.canvasSize.w - 95 ? this.moveBallRight() : null;
-				this.messi.playerMoveRight();
+				this.ballMovementR = true;
+				this.messi.messiMovementR = true;
 			} else if (e.key === "ArrowDown") {
-				this.ballPosition.y <= this.canvasSize.h - 80 ? this.moveBallDown() : null;
-				this.messi.playerMoveDown();
+				this.ballMovementD = true;
+				this.messi.messiMovementD = true;
 			} else if (e.key === "ArrowUp") {
-				this.ballPosition.y > 150 ? this.moveBallUp() : null;
-				this.messi.playerMoveUp();
+				this.ballMovementU = true;
+				this.messi.messiMovementU = true;
 			} else if (e.code === "Space") {
 				this.ballMove();
+			}
+		});
+
+		document.addEventListener("keyup", (e) => {
+			if (e.key === "ArrowLeft") {
+				this.ballMovementL = false;
+				this.messi.messiMovementL = false;
+			}
+			if (e.key === "ArrowRight") {
+				this.ballMovementR = false;
+				this.messi.messiMovementR = false;
+			}
+			if (e.key === "ArrowDown") {
+				this.ballMovementD = false;
+				this.messi.messiMovementD = false;
+			}
+			if (e.key === "ArrowUp") {
+				this.ballMovementU = false;
+				this.messi.messiMovementU = false;
 			}
 		});
 	},
@@ -152,26 +190,38 @@ const app = {
 		this.messi.playerPosY = 40;
 		this.ballPosition.x = this.messi.playerPosX + 25;
 		this.ballPosition.y = this.messi.playerPosY + 100;
-		this.shoot = false;
-		clearInterval(this.ballInterval);
-		this.obstacles = [];
 	},
 
 	checkBallOut() {
 		if (this.ballPosition.y >= this.canvasSize.h) {
+			// this.messi.playerPosX = this.playerPosition.x;
+			// this.messi.playerPosY = 40;
+			// this.ballPosition.x = this.messi.playerPosX + 25;
+			// this.ballPosition.y = this.messi.playerPosY + 100;
+			this.refreshPlayerPosition();
+			this.fallSound();
 			this.balls--;
 			this.updateScore();
 			this.updateBalls();
-			this.refreshPlayerPosition();
+			this.obstacles = [];
+			this.shoot = false;
+			clearInterval(this.ballInterval);
 		}
 	},
 
 	checkGoal() {
 		if (this.ballPosition.y >= this.canvasSize.h - 80 && this.ballPosition.x >= 360 && this.ballPosition.x <= 380) {
-			this.scoreSound();
+			// this.messi.playerPosX = this.playerPosition.x;
+			// this.messi.playerPosY = 40;
+			// this.ballPosition.x = this.messi.playerPosX + 25;
+			// this.ballPosition.y = this.messi.playerPosY + 100;
+			this.refreshPlayerPosition();
+			this.playSound(this.scoreAudio);
+			this.shoot = false;
 			this.score++;
 			this.updateScore();
-			this.refreshPlayerPosition();
+			clearInterval(this.ballInterval);
+			this.obstacles = [];
 		} else {
 			this.checkBallOut();
 		}
@@ -185,9 +235,16 @@ const app = {
 		this.obstacles.forEach((element) => {
 			if (this.ballPosition.x < element.conePositionX + 50 && this.ballPosition.x + 40 > element.conePositionX && this.ballPosition.y < element.conePositionY && 50 + this.ballPosition.y > element.conePositionY) {
 				this.refreshPlayerPosition();
+				// this.messi.playerPosX = this.playerPosition.x;
+				// this.messi.playerPosY = 40;
+				// this.ballPosition.x = this.messi.playerPosX + 25;
+				// this.ballPosition.y = this.messi.playerPosY + 100;
+				this.shoot = false;
 				this.colisionSound();
+				clearInterval(this.ballInterval);
 				this.balls--;
 				this.updateBalls();
+				this.obstacles = [];
 			}
 		});
 	},
@@ -217,8 +274,19 @@ const app = {
 				this.ctx.font = "80px Verdana italic";
 				this.ctx.lineWidth = 2;
 				this.ctx.fillText("GAME OVER", 160, 450);
+
 				this.gameOverSound();
-			}, 100);
+			}, 1000);
+		}
+	},
+
+	sendObstacles() {
+		this.framesCounter++;
+		if (this.framesCounter % 25 === 0) {
+			this.obstacles.push(new Obstacle(this.ctx, 50, 50, this.canvasSize, Math.random() * this.canvasSize.w - 20, this.canvasSize.h));
+		}
+		for (let i = 0; i < this.obstacles.length; i++) {
+			this.obstacles[i].drawObstacle();
 		}
 	},
 
@@ -228,13 +296,22 @@ const app = {
 			this.setBackgroundImage();
 			this.drawPlayer();
 			this.drawBall();
-
-			this.framesCounter++;
-			if (this.framesCounter % 25 === 0) {
-				this.obstacles.push(new Obstacle(this.ctx, 50, 50, this.canvasSize, Math.random() * this.canvasSize.w - 20, this.canvasSize.h));
+			this.sendObstacles();
+			this.messi.playerMoveLeft();
+			this.messi.playerMoveRight();
+			this.messi.playerMoveDown();
+			this.messi.playerMoveUp();
+			if (this.ballPosition.x > 20) {
+				this.moveBallLeft();
 			}
-			for (let i = 0; i < this.obstacles.length; i++) {
-				this.obstacles[i].drawObstacle();
+			if (this.ballPosition.x <= this.canvasSize.w - 65) {
+				this.moveBallRight();
+			}
+			if (this.ballPosition.y <= this.canvasSize.h - 80) {
+				this.moveBallDown();
+			}
+			if (this.ballPosition.y > 150) {
+				this.moveBallUp();
 			}
 			this.checkGoal();
 			this.checkWin();

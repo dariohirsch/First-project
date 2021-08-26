@@ -13,8 +13,8 @@ body {
 }
 
 #button {
-	width: 200px;
-	height: 100px;
+	width: 150px;
+	height: 75px;
 	font-size: 20px;
 	border-radius: 10px;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -32,22 +32,28 @@ body {
 
 #score,
 #balls {
-	font-size: 45px;
+	font-size: 40px;
 	margin-top: 35px;
-	margin-bottom: 30px;
+	margin-bottom: 25px;
 	color: rgb(231, 247, 244);
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .instrucciones {
 	color: rgb(231, 247, 244);
-	margin-top: 60px;
-	font-size: 23px;
+	margin-top: 45px;
+	font-size: 15px;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	width: 400px;
 	text-align: left;
 }
 
-img {
+#messi {
 	border-radius: 50%;
+}
+
+#flechas {
+	margin-top: 20px;
+	width: 115px;
+	height: 70px;
 }

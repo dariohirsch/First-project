@@ -15,6 +15,6 @@ class Obstacle {
 		this.move();
 	}
 	move() {
-		this.conePositionY -= 5;
+		this.conePositionY -= 4;
 	}
 }

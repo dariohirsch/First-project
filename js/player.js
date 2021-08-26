@@ -6,6 +6,10 @@ class Player {
 		this.ctx = ctx;
 		this.playerPosX = playerPosX;
 		this.playerPosY = playerPosY;
+		this.messiMovementL = false;
+		this.messiMovementR = false;
+		this.messiMovementU = false;
+		this.messiMovementD = false;
 		this.img = new Image();
 		this.img.src = "./images/jugador-de-futbol.png";
 	}
@@ -15,15 +19,26 @@ class Player {
 	}
 
 	playerMoveLeft() {
-		this.playerPosX > 10 ? (this.playerPosX -= 30) : null;
+		if (this.playerPosX > -30 && this.messiMovementL) {
+			this.playerPosX -= 4;
+		}
 	}
+
 	playerMoveRight() {
-		this.playerPosX < this.canvasSize.w - 95 ? (this.playerPosX += 30) : null;
+		if (this.playerPosX < this.canvasSize.w - 65 && this.messiMovementR) {
+			this.playerPosX += 4;
+		}
 	}
+
 	playerMoveUp() {
-		this.playerPosY > 40 ? (this.playerPosY -= 30) : null;
+		if (this.playerPosY > 40 && this.messiMovementU) {
+			this.playerPosY -= 4;
+		}
 	}
+
 	playerMoveDown() {
-		this.playerPosY < this.canvasSize.h - 180 ? (this.playerPosY += 30) : null;
+		if (this.playerPosY < this.canvasSize.h - 180 && this.messiMovementD) {
+			this.playerPosY += 4;
+		}
 	}
 }
