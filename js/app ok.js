@@ -215,7 +215,7 @@ const app = {
 	},
 
 	checkGoal() {
-		if (this.ballPosition.y >= this.canvasSize.h - 80 && this.ballPosition.x >= 360 && this.ballPosition.x <= 380) {
+		if (this.ballPosition.y >= this.canvasSize.h - 80 && this.ballPosition.x >= 340 && this.ballPosition.x <= 390) {
 			// this.messi.playerPosX = this.playerPosition.x;
 			// this.messi.playerPosY = 40;
 			// this.ballPosition.x = this.messi.playerPosX + 25;
