@@ -15,36 +15,6 @@ const app = {
 	ballMovementD: false,
 	ballMovementU: false,
 	ballShooting: false,
-
-	// scoreSound() {
-	// 	let scoreAudio = new Audio("./sounds/mixkit-winning-a-coin-video-game-2069.wav");
-	// 	scoreAudio.play();
-	// },
-	// whistleSound() {
-	// 	let whistleSound = new Audio("./sounds/Referee Whistle.mp3");
-	// 	whistleSound.play();
-	// },
-
-	// colisionSound() {
-	// 	let colisionSound = new Audio("./sounds/choque.mp3");
-	// 	colisionSound.play();
-	// },
-
-	// gameOverSound() {
-	// 	let gameOverSound = new Audio("./sounds/game over.mp3");
-	// 	gameOverSound.play();
-	// },
-
-	// winSound() {
-	// 	let winSound = new Audio("./sounds/victoria.mp3");
-	// 	winSound.play();
-	// },
-
-	// fallSound() {
-	// 	let fallSound = new Audio("./sounds/caida.mp3");
-	// 	fallSound.play();
-	// },
-
 	ctx: undefined,
 	canvasSize: {
 		w: undefined,
@@ -199,10 +169,6 @@ const app = {
 
 	checkBallOut() {
 		if (this.ballPosition.y >= this.canvasSize.h) {
-			// this.messi.playerPosX = this.playerPosition.x;
-			// this.messi.playerPosY = 40;
-			// this.ballPosition.x = this.messi.playerPosX + 25;
-			// this.ballPosition.y = this.messi.playerPosY + 100;
 			this.refreshPlayerPosition();
 			this.playSound(this.fallSound);
 			this.balls--;
@@ -216,10 +182,6 @@ const app = {
 
 	checkGoal() {
 		if (this.ballPosition.y >= this.canvasSize.h - 80 && this.ballPosition.x >= 340 && this.ballPosition.x <= 390) {
-			// this.messi.playerPosX = this.playerPosition.x;
-			// this.messi.playerPosY = 40;
-			// this.ballPosition.x = this.messi.playerPosX + 25;
-			// this.ballPosition.y = this.messi.playerPosY + 100;
 			this.refreshPlayerPosition();
 			this.playSound(this.scoreAudio);
 			this.shoot = false;
@@ -233,17 +195,13 @@ const app = {
 	},
 
 	updateScore() {
-		document.getElementById("score").innerHTML = `Score ${this.score}`;
+		document.getElementById("score").innerHTML = `Puntos ${this.score}`;
 	},
 
 	checkColision() {
 		this.obstacles.forEach((element) => {
 			if (this.ballPosition.x < element.conePositionX + 50 && this.ballPosition.x + 40 > element.conePositionX && this.ballPosition.y < element.conePositionY && 50 + this.ballPosition.y > element.conePositionY) {
 				this.refreshPlayerPosition();
-				// this.messi.playerPosX = this.playerPosition.x;
-				// this.messi.playerPosY = 40;
-				// this.ballPosition.x = this.messi.playerPosX + 25;
-				// this.ballPosition.y = this.messi.playerPosY + 100;
 				this.shoot = false;
 				this.playSound(this.colisionSound);
 				clearInterval(this.ballInterval);
@@ -255,7 +213,7 @@ const app = {
 	},
 
 	updateBalls() {
-		document.getElementById("balls").innerText = `Balls ${this.balls}`;
+		document.getElementById("balls").innerText = `Balones ${this.balls}`;
 	},
 
 	checkWin() {
