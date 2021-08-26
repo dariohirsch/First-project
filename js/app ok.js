@@ -5,44 +5,45 @@ const app = {
 	framesCounter: 0,
 	obstacles: [],
 	scoreAudio: new Audio("./sounds/mixkit-winning-a-coin-video-game-2069.wav"),
+	whistleSound: new Audio("./sounds/Referee Whistle.mp3"),
+	colisionSound: new Audio("./sounds/choque.mp3"),
+	gameOverSound: new Audio("./sounds/game over.mp3"),
+	winSound: new Audio("./sounds/victoria.mp3"),
+	fallSound: new Audio("./sounds/caida.mp3"),
 	ballMovementL: false,
 	ballMovementR: false,
 	ballMovementD: false,
 	ballMovementU: false,
 	ballShooting: false,
 
-	playSound(sound) {
-		sound.play();
-	},
+	// scoreSound() {
+	// 	let scoreAudio = new Audio("./sounds/mixkit-winning-a-coin-video-game-2069.wav");
+	// 	scoreAudio.play();
+	// },
+	// whistleSound() {
+	// 	let whistleSound = new Audio("./sounds/Referee Whistle.mp3");
+	// 	whistleSound.play();
+	// },
 
-	scoreSound() {
-		let scoreAudio = new Audio("./sounds/mixkit-winning-a-coin-video-game-2069.wav");
-		scoreAudio.play();
-	},
-	whistleSound() {
-		let whistleSound = new Audio("./sounds/Referee Whistle.mp3");
-		whistleSound.play();
-	},
+	// colisionSound() {
+	// 	let colisionSound = new Audio("./sounds/choque.mp3");
+	// 	colisionSound.play();
+	// },
 
-	colisionSound() {
-		let colisionSound = new Audio("./sounds/choque.mp3");
-		colisionSound.play();
-	},
+	// gameOverSound() {
+	// 	let gameOverSound = new Audio("./sounds/game over.mp3");
+	// 	gameOverSound.play();
+	// },
 
-	gameOverSound() {
-		let gameOverSound = new Audio("./sounds/game over.mp3");
-		gameOverSound.play();
-	},
+	// winSound() {
+	// 	let winSound = new Audio("./sounds/victoria.mp3");
+	// 	winSound.play();
+	// },
 
-	winSound() {
-		let winSound = new Audio("./sounds/victoria.mp3");
-		winSound.play();
-	},
-
-	fallSound() {
-		let fallSound = new Audio("./sounds/caida.mp3");
-		fallSound.play();
-	},
+	// fallSound() {
+	// 	let fallSound = new Audio("./sounds/caida.mp3");
+	// 	fallSound.play();
+	// },
 
 	ctx: undefined,
 	canvasSize: {
@@ -59,7 +60,7 @@ const app = {
 	},
 
 	init(canvas) {
-		this.whistleSound();
+		this.playSound(this.whistleSound);
 
 		this.ctx = canvas.getContext("2d");
 		this.canvasDimension();
@@ -71,6 +72,10 @@ const app = {
 		this.setListeners();
 
 		this.refreshCanvas();
+	},
+
+	playSound(sound) {
+		sound.play();
 	},
 
 	canvasDimension() {
@@ -199,7 +204,7 @@ const app = {
 			// this.ballPosition.x = this.messi.playerPosX + 25;
 			// this.ballPosition.y = this.messi.playerPosY + 100;
 			this.refreshPlayerPosition();
-			this.fallSound();
+			this.playSound(this.fallSound);
 			this.balls--;
 			this.updateScore();
 			this.updateBalls();
@@ -240,7 +245,7 @@ const app = {
 				// this.ballPosition.x = this.messi.playerPosX + 25;
 				// this.ballPosition.y = this.messi.playerPosY + 100;
 				this.shoot = false;
-				this.colisionSound();
+				this.playSound(this.colisionSound);
 				clearInterval(this.ballInterval);
 				this.balls--;
 				this.updateBalls();
@@ -261,7 +266,7 @@ const app = {
 				this.ctx.font = "80px Verdana italic";
 				this.ctx.lineWidth = 2;
 				this.ctx.fillText("YOU WIN!", 190, 450);
-				this.winSound();
+				this.playSound(this.winSound);
 			}, 100);
 		}
 	},
@@ -275,7 +280,7 @@ const app = {
 				this.ctx.lineWidth = 2;
 				this.ctx.fillText("GAME OVER", 160, 450);
 
-				this.gameOverSound();
+				this.playSound(this.gameOverSound);
 			}, 1000);
 		}
 	},
