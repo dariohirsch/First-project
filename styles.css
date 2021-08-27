@@ -21,6 +21,7 @@ body {
 	color: rgb(13, 59, 89);
 	background-color: rgba(240, 49, 49, 0.76);
 	border: 2px solid whitesmoke;
+	font-weight: bold;
 }
 
 .info {
