@@ -195,7 +195,7 @@ const app = {
 	},
 
 	updateScore() {
-		document.getElementById("score").innerHTML = `Puntos ${this.score}`;
+		document.getElementById("score").innerHTML = `Goles ${this.score}`;
 	},
 
 	checkColision() {
